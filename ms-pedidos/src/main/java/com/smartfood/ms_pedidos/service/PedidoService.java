@@ -16,11 +16,18 @@ public class PedidoService {
     private final InventarioClient inventarioClient;
 
     public PedidoDTO procesarPedido(PedidoDTO dto) {
+       
         inventarioClient.obtenerStockPorId(dto.getProductoId());
         
         Pedido pedido = new Pedido(null, dto.getClienteId(), dto.getProductoId(), dto.getCantidad(), dto.getTotal(), LocalDateTime.now());
         Pedido guardado = pedidoRepository.save(pedido);
         
         return new PedidoDTO(guardado.getId(), guardado.getClienteId(), guardado.getProductoId(), guardado.getCantidad(), guardado.getTotal(), guardado.getFechaPedido());
+    }
+
+    public PedidoDTO buscarPorId(Long id) {
+        return pedidoRepository.findById(id)
+                .map(p -> new PedidoDTO(p.getId(), p.getClienteId(), p.getProductoId(), p.getCantidad(), p.getTotal(), p.getFechaPedido()))
+                .orElse(null);
     }
 }
