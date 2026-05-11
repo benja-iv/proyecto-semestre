@@ -1,4 +1,4 @@
-package com.smartfood.ms_catalogo;
+package com.smartfood.ms_inventario;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,10 +6,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableFeignClients
-public class MsCatalogoApplication {
+public class MsInventarioApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MsCatalogoApplication.class, args);
+		SpringApplication.run(MsInventarioApplication.class, args);
 	}
 
 }
