@@ -20,6 +20,6 @@ public class Inventario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long productoId; // Este ID vendrá del ms-catalogo
+    private Long productoId;
     private Integer cantidad;
 }
