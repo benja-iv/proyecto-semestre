@@ -1,4 +1,4 @@
-package com.smartfood.ms_catalogo.dto;
+package com.smartfood.ms_pedidos.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

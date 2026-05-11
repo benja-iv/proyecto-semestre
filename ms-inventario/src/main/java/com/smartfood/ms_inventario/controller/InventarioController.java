@@ -1,13 +1,9 @@
 package com.smartfood.ms_inventario.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.smartfood.ms_inventario.model.Inventario;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import com.smartfood.ms_inventario.dto.InventarioResponseDTO;
 import com.smartfood.ms_inventario.repository.InventarioRepository;
-
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -18,9 +14,9 @@ public class InventarioController {
     private final InventarioRepository inventarioRepository;
 
     @GetMapping("/{id}")
-    public String obtenerId(@PathVariable Long id) {
+    public ResponseEntity<InventarioResponseDTO> obtenerStock(@PathVariable Long id) {
         return inventarioRepository.findByProductoId(id)
-                .map(inv -> "Hay " + inv.getCantidad() + " unidades del producto " + id)
-                .orElse("Producto " + id + " no encontrado en inventario");
+                .map(inv -> ResponseEntity.ok(new InventarioResponseDTO(inv.getProductoId(), inv.getCantidad())))
+                .orElse(ResponseEntity.notFound().build());
     }
 }
