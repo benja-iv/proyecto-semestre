@@ -17,8 +17,8 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         pedidoRepository.saveAll(List.of(
-            new Pedido(null, 1L, 1L, 2, 30.0, LocalDateTime.now()),
-            new Pedido(null, 2L, 2L, 1, 15.0, LocalDateTime.now())
-        ));
+    new Pedido(null, 1L, 1L, 1, 0.0, LocalDateTime.now(), "PENDIENTE"),
+    new Pedido(null, 2L, 2L, 2, 0.0, LocalDateTime.now(), "PENDIENTE")
+    ));
     }
 }

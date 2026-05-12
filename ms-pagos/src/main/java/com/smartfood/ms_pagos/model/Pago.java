@@ -1,4 +1,4 @@
-package com.smartfood.ms_pedidos.model;
+package com.smartfood.ms_pagos.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,19 +7,18 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "pedidos")
+@Table(name = "pagos")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Pedido {
+public class Pago {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    private Long clienteId;
-    private Long productoId;
-    private Integer cantidad;
-    private Double total;
-    private LocalDateTime fechaPedido;
+
+    private Long pedidoId;
+    private Double monto;
+    private String metodoPago;
     private String estado;
+    private LocalDateTime fechaPago;
 }
