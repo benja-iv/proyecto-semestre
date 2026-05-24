@@ -1,9 +1,8 @@
 package com.smartfood.ms_inventario.repository;
 
+import com.smartfood.ms_inventario.model.Inventario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import com.smartfood.ms_inventario.model.Inventario;
 
 import java.util.Optional;
 

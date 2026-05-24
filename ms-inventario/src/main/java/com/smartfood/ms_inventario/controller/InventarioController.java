@@ -1,33 +1,36 @@
 package com.smartfood.ms_inventario.controller;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import com.smartfood.ms_inventario.dto.InventarioRequestDTO;
 import com.smartfood.ms_inventario.dto.InventarioResponseDTO;
 import com.smartfood.ms_inventario.service.InventarioService;
-import lombok.RequiredArgsConstructor;
+import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/inventario")
-@RequiredArgsConstructor
+@Validated
 public class InventarioController {
 
+    private static final Logger logger = LoggerFactory.getLogger(InventarioController.class);
     private final InventarioService inventarioService;
 
-    @GetMapping
-    public ResponseEntity<List<InventarioResponseDTO>> listarTodo() {
-        List<InventarioResponseDTO> lista = inventarioService.listarTodo().stream()
-            .map(inv -> new InventarioResponseDTO(inv.getProductoId(), inv.getCantidad()))
-            .collect(Collectors.toList());
-        return ResponseEntity.ok(lista);
+    public InventarioController(InventarioService inventarioService) {
+        this.inventarioService = inventarioService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<InventarioResponseDTO> obtenerStock(@PathVariable Long id) {
-        return inventarioService.buscarPorProductoId(id)
-                .map(inv -> ResponseEntity.ok(new InventarioResponseDTO(inv.getProductoId(), inv.getCantidad())))
-                .orElseThrow(() -> new RuntimeException("Producto con ID " + id + " no encontrado en inventario"));
+    @GetMapping("/producto/{productoId}")
+    public ResponseEntity<InventarioResponseDTO> consultarPorProducto(@PathVariable Long productoId) {
+        logger.debug("Peticion GET /api/inventario/producto/{}", productoId);
+        return ResponseEntity.ok(inventarioService.consultarPorProductoId(productoId));
+    }
+
+    @PostMapping
+    public ResponseEntity<InventarioResponseDTO> registrarOActualizar(@Valid @RequestBody InventarioRequestDTO dto) {
+        logger.debug("Peticion POST /api/inventario para producto ID: {}", dto.getProductoId());
+        return ResponseEntity.ok(inventarioService.registrarOActualizar(dto));
     }
 }

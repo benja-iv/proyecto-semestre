@@ -7,16 +7,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class ClienteRequestDTO {
+
     @NotBlank(message = "El nombre es obligatorio")
     private String nombre;
 
-    @Email(message = "Debe ser un email válido")
     @NotBlank(message = "El email es obligatorio")
+    @Email(message = "El formato del email no es valido")
     private String email;
 
-    @NotBlank(message = "La dirección es obligatoria")
+    @NotBlank(message = "El telefono es obligatorio")
+    private String telefono;
+
+    @NotBlank(message = "La direccion es obligatoria")
     private String direccion;
 }

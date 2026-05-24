@@ -4,10 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class InventarioResponseDTO {
+    private Long id;
     private Long productoId;
-    private Integer cantidad;
+    private Integer cantidadDisponible;
+    private LocalDateTime ultimaActualizacion;
 }
