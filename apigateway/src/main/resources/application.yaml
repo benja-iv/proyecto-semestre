@@ -69,4 +69,5 @@ eureka:
 
 logging:
   level:
-    '[org.springframework.cloud.gateway]': DEBUG
+    org.springframework.cloud.gateway: TRACE
+    reactor.netty.http.server.AccessLog: DEBUG
