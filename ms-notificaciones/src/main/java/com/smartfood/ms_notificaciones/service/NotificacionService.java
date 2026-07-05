@@ -35,4 +35,12 @@ public class NotificacionService {
                 .map(n -> new NotificacionResponseDTO(n.getId(), n.getClienteId(), n.getMensaje(), n.getFechaEnvio()))
                 .collect(Collectors.toList());
     }
+
+    @Transactional(readOnly = true)
+    public List<NotificacionResponseDTO> obtenerTodos() {
+        return repository.findAll().stream()
+                .map(n -> new NotificacionResponseDTO(n.getId(), n.getClienteId(), n.getMensaje(), n.getFechaEnvio()))
+                .collect(Collectors.toList());
+    }    
+
 }

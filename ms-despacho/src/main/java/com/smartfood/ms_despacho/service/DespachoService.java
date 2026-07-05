@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DespachoService {
@@ -64,6 +66,14 @@ public class DespachoService {
         Despacho despacho = repository.findById(id).orElseThrow(() -> new DespachoNotFoundException(id));
         return mapearAResponse(despacho);
     }
+
+    @Transactional(readOnly = true)
+    public List<DespachoResponseDTO> obtenerTodos() {
+        return repository.findAll().stream()
+                .map(n -> new DespachoResponseDTO(n.getId(), n.getPedidoId(), n.getEstado(), n.getDireccionEntrega(), n.getFechaActualizacion()))
+                .collect(Collectors.toList());
+    }   
+
 
     private DespachoResponseDTO mapearAResponse(Despacho d) {
         return new DespachoResponseDTO(d.getId(), d.getPedidoId(), d.getEstado(), d.getDireccionEntrega(), d.getFechaActualizacion());

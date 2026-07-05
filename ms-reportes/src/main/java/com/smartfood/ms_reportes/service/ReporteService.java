@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ReporteService {
@@ -42,4 +43,14 @@ public class ReporteService {
         Reporte guardado = repository.save(reporte);
         return new ReporteResponseDTO(guardado.getId(), guardado.getTipoReporte(), guardado.getFechaGeneracion(), guardado.getEstado());
     }
+
+
+    @Transactional(readOnly = true)
+    public List<ReporteResponseDTO> obtenerTodos() {
+        return repository.findAll().stream()
+                .map(n -> new ReporteResponseDTO(n.getId(), n.getTipoReporte(), n.getFechaGeneracion(), n.getEstado()))
+                .collect(Collectors.toList());
+    }     
+
+
 }

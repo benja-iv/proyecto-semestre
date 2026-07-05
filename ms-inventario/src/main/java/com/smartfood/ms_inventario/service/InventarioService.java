@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class InventarioService {
@@ -20,6 +22,14 @@ public class InventarioService {
 
     public InventarioService(InventarioRepository inventarioRepository) {
         this.inventarioRepository = inventarioRepository;
+    }
+
+    @Transactional(readOnly = true)
+    public List<InventarioResponseDTO> obtenerTodos() {
+        logger.info("Consultando inventario");
+        return inventarioRepository.findAll().stream()
+                .map(this::mapearAResponseDTO)
+                .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)

@@ -23,6 +23,12 @@ public class NotificacionController {
         return ResponseEntity.ok(service.enviarNotificacion(dto));
     }
 
+    @GetMapping
+    public ResponseEntity<List<NotificacionResponseDTO>> obtenerTodos() {
+        return ResponseEntity.ok(service.obtenerTodos());
+    }
+
+
     @GetMapping("/cliente/{clienteId}")
     public ResponseEntity<List<NotificacionResponseDTO>> obtenerPorCliente(@PathVariable Long clienteId) {
         return ResponseEntity.ok(service.obtenerPorCliente(clienteId));

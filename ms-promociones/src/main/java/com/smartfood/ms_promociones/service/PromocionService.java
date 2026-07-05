@@ -5,6 +5,10 @@ import com.smartfood.ms_promociones.dto.PromocionResponseDTO;
 import com.smartfood.ms_promociones.exception.PromocionInvalidaException;
 import com.smartfood.ms_promociones.model.Promocion;
 import com.smartfood.ms_promociones.repository.PromocionRepository;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -26,6 +30,13 @@ public class PromocionService {
                 .orElseThrow(() -> new PromocionInvalidaException("Codigo promocional no valido o expirado"));
         return new PromocionResponseDTO(promo.getId(), promo.getCodigo(), promo.getPorcentajeDescuento(), promo.getActiva());
     }
+
+    @Transactional(readOnly = true)
+    public List<PromocionResponseDTO> obtenerTodos() {
+        return repository.findAll().stream()
+                .map(n -> new PromocionResponseDTO(n.getId(), n.getCodigo(), n.getPorcentajeDescuento(), n.getActiva()))
+                .collect(Collectors.toList());
+    }     
 
     @Transactional
     public PromocionResponseDTO crearPromocion(PromocionRequestDTO dto) {

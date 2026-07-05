@@ -2,8 +2,12 @@ package com.smartfood.ms_inventario.controller;
 
 import com.smartfood.ms_inventario.dto.InventarioRequestDTO;
 import com.smartfood.ms_inventario.dto.InventarioResponseDTO;
+import com.smartfood.ms_inventario.repository.InventarioRepository;
 import com.smartfood.ms_inventario.service.InventarioService;
 import jakarta.validation.Valid;
+
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +19,21 @@ import org.springframework.web.bind.annotation.*;
 @Validated
 public class InventarioController {
 
+    private final InventarioRepository inventarioRepository;
     private static final Logger logger = LoggerFactory.getLogger(InventarioController.class);
     private final InventarioService inventarioService;
 
-    public InventarioController(InventarioService inventarioService) {
+    public InventarioController(InventarioService inventarioService, InventarioRepository inventarioRepository) {
         this.inventarioService = inventarioService;
+        this.inventarioRepository = inventarioRepository;
     }
+
+    @GetMapping
+    public ResponseEntity<List<InventarioResponseDTO>> obtenerTodos() {
+        logger.debug("GET /api/inventario recibido");
+        return ResponseEntity.ok(inventarioService.obtenerTodos());
+    }
+
 
     @GetMapping("/producto/{productoId}")
     public ResponseEntity<InventarioResponseDTO> consultarPorProducto(@PathVariable Long productoId) {

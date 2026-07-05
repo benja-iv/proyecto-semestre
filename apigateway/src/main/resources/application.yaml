@@ -6,56 +6,58 @@ spring:
     name: api-gateway
   cloud:
     gateway:
-      routes:
-        - id: ruta-ms-carrito
-          uri: lb://ms-carrito
-          predicates:
-            - Path=/api/carrito,/api/carrito/**
+      server:
+        webflux:
+          routes:
+            - id: ruta-ms-carrito
+              uri: lb://ms-carrito
+              predicates:
+                - Path=/api/carrito,/api/carrito/**
 
-        - id: ruta-ms-catalogo
-          uri: lb://ms-catalogo
-          predicates:
-            - Path=/api/catalogo,/api/catalogo/**
+            - id: ruta-ms-catalogo
+              uri: lb://ms-catalogo
+              predicates:
+                - Path=/api/categorias,/api/categorias/**
 
-        - id: ruta-ms-clientes
-          uri: lb://ms-clientes
-          predicates:
-            - Path=/api/clientes,/api/clientes/**
+            - id: ruta-ms-clientes
+              uri: lb://ms-clientes
+              predicates:
+                - Path=/api/clientes,/api/clientes/**
 
-        - id: ruta-ms-despacho
-          uri: lb://ms-despacho
-          predicates:
-            - Path=/api/despacho,/api/despacho/**
+            - id: ruta-ms-despacho
+              uri: lb://ms-despacho
+              predicates:
+                - Path=/api/despachos,/api/despachos/**
 
-        - id: ruta-ms-inventario
-          uri: lb://ms-inventario
-          predicates:
-            - Path=/api/inventario,/api/inventario/**
+            - id: ruta-ms-inventario
+              uri: lb://ms-inventario
+              predicates:
+                - Path=/api/inventario,/api/inventario/**
 
-        - id: ruta-ms-notificaciones
-          uri: lb://ms-notificaciones
-          predicates:
-            - Path=/api/notificaciones,/api/notificaciones/**
+            - id: ruta-ms-notificaciones
+              uri: lb://ms-notificaciones
+              predicates:
+                - Path=/api/notificaciones,/api/notificaciones/**
 
-        - id: ruta-ms-pagos
-          uri: lb://ms-pagos
-          predicates:
-            - Path=/api/pagos,/api/pagos/**
+            - id: ruta-ms-pagos
+              uri: lb://ms-pagos
+              predicates:
+                - Path=/api/pagos,/api/pagos/**
 
-        - id: ruta-ms-pedidos
-          uri: lb://ms-pedidos
-          predicates:
-            - Path=/api/pedidos,/api/pedidos/**
+            - id: ruta-ms-pedidos
+              uri: lb://ms-pedidos
+              predicates:
+                - Path=/api/pedidos,/api/pedidos/**
 
-        - id: ruta-ms-promociones
-          uri: lb://ms-promociones
-          predicates:
-            - Path=/api/promociones,/api/promociones/**
+            - id: ruta-ms-promociones
+              uri: lb://ms-promociones
+              predicates:
+                - Path=/api/promociones,/api/promociones/**
 
-        - id: ruta-ms-reportes
-          uri: lb://ms-reportes
-          predicates:
-            - Path=/api/reportes,/api/reportes/**
+            - id: ruta-ms-reportes
+              uri: lb://ms-reportes
+              predicates:
+                - Path=/api/reportes,/api/reportes/**
 
 eureka:
   client:
