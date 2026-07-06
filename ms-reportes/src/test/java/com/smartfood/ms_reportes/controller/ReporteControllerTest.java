@@ -32,27 +32,27 @@ class ReporteControllerTest {
     private final ObjectMapper objectMapper = new ObjectMapper().findAndRegisterModules();
 
     @Test
-    @DisplayName("POST /api/reportes/generar debe retornar 200 con datos validos")
-    void generar_debeRetornar200() throws Exception {
+    @DisplayName("POST /api/reportes/generar debe retornar 201 con datos validos")
+    void generar_debeRetornar201() throws Exception {
         when(reporteService.generarReporte(any()))
                 .thenReturn(new ReporteResponseDTO(1L, "VENTAS_DIARIAS", LocalDateTime.now(), "COMPLETADO"));
         mockMvc.perform(post("/api/reportes/generar")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(new ReporteRequestDTO("VENTAS_DIARIAS"))))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.tipoReporte").value("VENTAS_DIARIAS"))
                 .andExpect(jsonPath("$.estado").value("COMPLETADO"));
     }
 
     @Test
-    @DisplayName("POST /api/reportes/generar debe retornar 200 con estado FALLIDO")
-    void generar_debeRetornar200_estadoFallido() throws Exception {
+    @DisplayName("POST /api/reportes/generar debe retornar 201 con estado FALLIDO")
+    void generar_debeRetornar201_estadoFallido() throws Exception {
         when(reporteService.generarReporte(any()))
                 .thenReturn(new ReporteResponseDTO(2L, "VENTAS_DIARIAS", LocalDateTime.now(), "FALLIDO"));
         mockMvc.perform(post("/api/reportes/generar")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(new ReporteRequestDTO("VENTAS_DIARIAS"))))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.estado").value("FALLIDO"));
     }
 

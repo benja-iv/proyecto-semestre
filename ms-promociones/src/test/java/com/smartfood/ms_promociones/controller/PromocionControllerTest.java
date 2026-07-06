@@ -51,14 +51,14 @@ class PromocionControllerTest {
     }
 
     @Test
-    @DisplayName("POST /api/promociones debe retornar 200 con datos validos")
-    void crearPromocion_debeRetornar200() throws Exception {
+    @DisplayName("POST /api/promociones debe retornar 201 con datos validos")
+    void crearPromocion_debeRetornar201() throws Exception {
         when(promocionService.crearPromocion(any()))
                 .thenReturn(new PromocionResponseDTO(1L, "PROMO10", 10, true));
         mockMvc.perform(post("/api/promociones")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(new PromocionRequestDTO("PROMO10", 10))))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.activa").value(true));
     }
 
